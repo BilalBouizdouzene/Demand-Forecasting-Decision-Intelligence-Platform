@@ -1,0 +1,5 @@
+{
+  "run_id": "615a04d2c69141e297b497ec61c2bb21",
+  "experiment": "m5-demand-intelligence",
+  "tracking_uri": "file:./mlruns"
+}

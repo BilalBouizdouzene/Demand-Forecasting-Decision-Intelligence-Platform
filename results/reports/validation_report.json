@@ -1,0 +1,39 @@
+{
+  "row_count": 1913000,
+  "series_count": 1000,
+  "date_min": "2011-01-29 00:00:00",
+  "date_max": "2016-04-24 00:00:00",
+  "duplicate_series_date_rows": 0,
+  "negative_sales": 0,
+  "missing_id_rows": 0,
+  "missingness": {
+    "event_type_2": 0.9979090433873498,
+    "event_name_2": 0.9979090433873498,
+    "event_name_1": 0.9194981704129639,
+    "event_type_1": 0.9194981704129639,
+    "sell_price": 0.43849346576058545,
+    "item_id": 0.0,
+    "id": 0.0,
+    "d": 0.0,
+    "state_id": 0.0,
+    "store_id": 0.0,
+    "cat_id": 0.0,
+    "dept_id": 0.0,
+    "sales": 0.0,
+    "wm_yr_wk": 0.0,
+    "date": 0.0,
+    "year": 0.0,
+    "month": 0.0,
+    "wday": 0.0,
+    "weekday": 0.0,
+    "snap_CA": 0.0,
+    "snap_TX": 0.0,
+    "snap_WI": 0.0,
+    "series_id": 0.0
+  },
+  "warnings": [
+    "M5 price coverage is not complete for every date/item/store row."
+  ],
+  "errors": [],
+  "valid": true
+}

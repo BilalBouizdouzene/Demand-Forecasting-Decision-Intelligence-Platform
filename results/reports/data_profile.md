@@ -1,0 +1,20 @@
+# M5 data profile
+
+This profile is generated from the locally selected M5 subset; no statistics are hard-coded.
+
+- **rows**: `1913000`
+- **series**: `1000`
+- **items**: `100`
+- **stores**: `10`
+- **states**: `3`
+- **departments**: `7`
+- **categories**: `3`
+- **date_min**: `2011-01-29 00:00:00`
+- **date_max**: `2016-04-24 00:00:00`
+- **total_sales**: `220953.0`
+- **mean_daily_sales_per_row**: `0.1155007854104042`
+- **sales_quantiles**: `{'0': 0.0, '0.5': 0.0, '0.9': 0.0, '0.99': 2.0, '1': 63.0}`
+- **zero_sales_proportion**: `0.9333173026659697`
+- **missingness**: `{'event_type_2': 0.9979090433873498, 'event_name_2': 0.9979090433873498, 'event_name_1': 0.9194981704129639, 'event_type_1': 0.9194981704129639, 'sell_price': 0.43849346576058545, 'item_id': 0.0, 'id': 0.0, 'd': 0.0, 'state_id': 0.0, 'store_id': 0.0, 'cat_id': 0.0, 'dept_id': 0.0, 'sales': 0.0, 'wm_yr_wk': 0.0, 'date': 0.0, 'year': 0.0, 'month': 0.0, 'wday': 0.0, 'weekday': 0.0, 'snap_CA': 0.0, 'snap_TX': 0.0, 'snap_WI': 0.0, 'series_id': 0.0}`
+- **price_coverage**: `0.5615065342394145`
+- **event_days**: `154000`

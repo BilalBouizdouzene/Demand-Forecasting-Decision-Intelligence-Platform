@@ -1,0 +1,10 @@
+{
+  "validation_rows": 28000,
+  "anomaly_rows": 2876,
+  "types": {
+    "normal": 2,
+    "unexpected demand drop": 455,
+    "unexpected demand spike": 2419
+  },
+  "interpretation": "unusual residual deviation from expected demand; not a fraud or incident conclusion"
+}

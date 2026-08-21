@@ -1,0 +1,8 @@
+{
+  "data_drift_rows": 5,
+  "performance_periods": 5,
+  "retraining_recommended": false,
+  "degradation_ratio": 0.0395550592920672,
+  "threshold": 0.2,
+  "action": "continue monitoring"
+}

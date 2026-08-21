@@ -1,0 +1,7 @@
+backtesting:
+  validation_days: 28
+  horizons: [1, 7, 28]
+  folds: 3
+  min_train_days: 365
+  max_training_rows: 100000
+  primary_metric: wape

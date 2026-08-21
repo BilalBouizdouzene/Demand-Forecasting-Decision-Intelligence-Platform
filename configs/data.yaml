@@ -1,0 +1,11 @@
+data:
+  raw_dir: data/raw
+  interim_dir: data/interim
+  processed_dir: data/processed
+  use_full_dataset: false
+  max_items: 100
+  max_stores: 10
+  min_history_days: 365
+  sales_chunk_rows: 2048
+  processed_filename: m5_subset.parquet
+  seed: 42

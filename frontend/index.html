@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#09121f" />
+    <meta name="description" content="Demand Intelligence planning workspace" />
+    <title>Demand Intelligence | Planning workspace</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navigation principale">
+        <div class="brand">
+          <div class="brand-mark">DI</div>
+          <div>
+            <div class="brand-name">Demand<span>Desk</span></div>
+            <div class="brand-caption">Planning workspace</div>
+          </div>
+        </div>
+
+        <div class="workspace-switcher">
+          <span class="eyebrow">WORKSPACE</span>
+          <button class="workspace-button" type="button">
+            <span class="workspace-avatar">M5</span>
+            <span class="workspace-copy"><strong>Retail pilot</strong><small>Local review</small></span>
+            <span class="workspace-chevron">⌄</span>
+          </button>
+        </div>
+
+        <nav class="main-nav">
+          <span class="nav-label">CONTROL CENTER</span>
+          <button class="nav-item is-active" type="button" data-view="overview" data-title="Overview">
+            <span class="nav-icon">01</span><span>Overview</span>
+          </button>
+          <button class="nav-item" type="button" data-view="forecasts" data-title="Forecast explorer">
+            <span class="nav-icon">02</span><span>Forecast explorer</span>
+          </button>
+          <button class="nav-item" type="button" data-view="decisions" data-title="Decision center">
+            <span class="nav-icon">03</span><span>Decision center</span><span class="nav-count" id="nav-risk-count">—</span>
+          </button>
+          <button class="nav-item" type="button" data-view="models" data-title="Model performance">
+            <span class="nav-icon">04</span><span>Model performance</span>
+          </button>
+          <button class="nav-item" type="button" data-view="monitoring" data-title="Monitoring">
+            <span class="nav-icon">05</span><span>Monitoring</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="data-source-card">
+            <div class="source-topline"><span class="live-dot"></span><span>DATA PIPELINE</span></div>
+            <strong>M5 Forecasting</strong>
+            <small>1,000 active series · refreshed today</small>
+          </div>
+          <div class="sidebar-meta"><span>v0.1.0</span><span>API connected</span></div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>Workspace</span><span class="slash">/</span><strong id="breadcrumb-title">Overview</strong></div>
+          <div class="topbar-actions">
+            <div class="api-status" id="api-status"><span class="status-dot"></span><span>Connecting</span></div>
+            <button class="topbar-button" id="refresh-button" type="button"><span class="refresh-glyph">↻</span> Refresh</button>
+            <div class="user-avatar" title="Demand Intelligence">DI</div>
+          </div>
+        </header>
+
+        <div class="notice is-hidden" id="app-notice" role="status"></div>
+
+        <section class="view is-visible" id="view-overview" data-view-panel="overview">
+          <div class="page-heading hero-heading">
+            <div>
+              <div class="section-kicker">THURSDAY · 21 AUGUST 2026</div>
+              <h1>Good morning, planner.</h1>
+              <p>Here is the latest view of demand, risk and replenishment priorities across your retail network.</p>
+            </div>
+            <div class="heading-actions">
+              <span class="model-badge"><span class="badge-dot"></span><span id="model-badge-text">Ridge · loading</span></span>
+              <button class="secondary-button" type="button" data-view-target="forecasts">Explore forecasts <span>→</span></button>
+            </div>
+          </div>
+
+          <div class="metric-grid" id="overview-metrics">
+            <div class="metric-card skeleton-card"></div><div class="metric-card skeleton-card"></div><div class="metric-card skeleton-card"></div><div class="metric-card skeleton-card"></div>
+          </div>
+
+          <div class="content-grid content-grid-main">
+            <article class="panel chart-panel">
+              <div class="panel-heading">
+                <div><span class="panel-kicker">NETWORK DEMAND</span><h2>Forecast horizon</h2></div>
+                <div class="legend"><span class="legend-line"></span> Forecast units <span class="legend-marker"></span> 28-day horizon</div>
+              </div>
+              <div class="chart-wrap chart-wrap-large"><canvas id="overview-chart" aria-label="Prévision de demande agrégée" role="img"></canvas></div>
+              <div class="chart-footnote"><span>All stores and selected product set</span><strong id="forecast-date-label">Forecast as of —</strong></div>
+            </article>
+
+            <article class="panel insight-panel">
+              <div class="panel-heading"><div><span class="panel-kicker">PLANNER BRIEF</span><h2>What needs attention</h2></div><span class="panel-menu">•••</span></div>
+              <div class="insight-main"><div class="insight-icon">!</div><div><strong id="insight-title">Loading priorities</strong><p id="insight-copy">Loading the latest decisions.</p></div></div>
+              <div class="insight-list" id="insight-list"></div>
+              <button class="text-button" type="button" data-view-target="decisions">Open decision center <span>→</span></button>
+            </article>
+          </div>
+
+          <div class="content-grid content-grid-bottom">
+            <article class="panel table-panel">
+              <div class="panel-heading"><div><span class="panel-kicker">ACTION QUEUE</span><h2>Highest priority decisions</h2></div><button class="panel-link" type="button" data-view-target="decisions">View all <span>→</span></button></div>
+              <div class="table-scroll"><table><thead><tr><th>Series</th><th>Risk</th><th>Order qty</th><th>Priority</th></tr></thead><tbody id="overview-decisions"></tbody></table></div>
+            </article>
+            <article class="panel distribution-panel">
+              <div class="panel-heading"><div><span class="panel-kicker">RISK MIX</span><h2>Stockout exposure</h2></div></div>
+              <div class="risk-bars" id="risk-bars"></div>
+              <div class="distribution-note"><span class="live-dot"></span><span>Inventory values are simulated decision inputs from the M5 dataset.</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="view-forecasts" data-view-panel="forecasts">
+          <div class="page-heading"><div><div class="section-kicker">DEMAND SIGNALS</div><h1>Forecast explorer</h1><p>Inspect daily demand, uncertainty bands and the operational signal for any store–item series.</p></div></div>
+          <article class="panel explorer-toolbar">
+            <div class="field-group"><label for="forecast-store">Store</label><select id="forecast-store"></select></div>
+            <div class="field-group field-group-wide"><label for="forecast-item">Item</label><select id="forecast-item"></select></div>
+            <div class="field-group"><label for="forecast-horizon">Horizon</label><select id="forecast-horizon"><option value="7">7 days</option><option value="14">14 days</option><option value="28">28 days</option></select></div>
+            <button class="primary-button" id="load-forecast" type="button">Load series <span>→</span></button>
+          </article>
+          <div class="metric-grid metric-grid-three" id="forecast-metrics"></div>
+          <div class="content-grid content-grid-main">
+            <article class="panel chart-panel"><div class="panel-heading"><div><span class="panel-kicker">SELECTED SERIES</span><h2 id="selected-series-title">Select a series</h2></div><span class="model-badge" id="forecast-model-badge">Ridge</span></div><div class="chart-wrap chart-wrap-large"><canvas id="series-chart" aria-label="Prévision de la série sélectionnée" role="img"></canvas></div><div class="chart-footnote"><span><span class="legend-line"></span> Forecast <span class="legend-band"></span> 90% uncertainty range</span><strong id="series-risk-label">—</strong></div></article>
+            <article class="panel detail-panel"><div class="panel-heading"><div><span class="panel-kicker">DECISION SIGNAL</span><h2>Recommended action</h2></div></div><div class="decision-hero" id="series-decision-hero"><span class="risk-pill">—</span><strong>Waiting for series</strong><p>Select a store and item to load its decision context.</p></div><div class="detail-stats" id="series-detail-stats"></div><div class="detail-note">Forecast intervals are calibrated from chronological residuals. They express uncertainty, not a guarantee.</div></article>
+          </div>
+          <article class="panel table-panel series-table-panel"><div class="panel-heading"><div><span class="panel-kicker">DAILY OUTPUT</span><h2>Forecast table</h2></div></div><div class="table-scroll"><table><thead><tr><th>Date</th><th>Horizon</th><th>Forecast</th><th>Lower bound</th><th>Upper bound</th></tr></thead><tbody id="series-table"></tbody></table></div></article>
+        </section>
+
+        <section class="view" id="view-decisions" data-view-panel="decisions">
+          <div class="page-heading"><div><div class="section-kicker">REPLENISHMENT CONTROL</div><h1>Decision center</h1><p>Prioritize the series where a stockout risk signal and the recommended order quantity deserve a planner review.</p></div><div class="heading-actions"><span class="simulation-badge"><span class="live-dot"></span> Simulated inventory layer</span></div></div>
+          <div class="metric-grid metric-grid-three" id="decision-metrics"></div>
+          <article class="panel table-panel"><div class="panel-heading"><div><span class="panel-kicker">PRIORITY QUEUE</span><h2>Replenishment recommendations</h2></div><div class="table-actions"><label class="sr-only" for="risk-filter">Filter risk</label><select class="compact-select" id="risk-filter"><option value="ALL">All risk levels</option><option value="CRITICAL">Critical</option><option value="HIGH">High</option><option value="MEDIUM">Medium</option><option value="LOW">Low</option></select></div></div><div class="table-scroll table-scroll-tall"><table><thead><tr><th>Store</th><th>Item</th><th>7-day demand</th><th>Simulated stock</th><th>Risk</th><th>Recommended order</th><th>Priority</th></tr></thead><tbody id="decisions-table"></tbody></table></div><div class="table-footer"><span id="decision-row-count">—</span><span>Sorted by priority score</span></div></article>
+        </section>
+
+        <section class="view" id="view-models" data-view-panel="models">
+          <div class="page-heading"><div><div class="section-kicker">MODEL GOVERNANCE</div><h1>Model performance</h1><p>Compare the benchmark ladder by forecast horizon and keep the operational choice transparent.</p></div></div>
+          <div class="content-grid content-grid-main"><article class="panel chart-panel"><div class="panel-heading"><div><span class="panel-kicker">BENCHMARK SCORECARD</span><h2>Average WAPE by model</h2></div><span class="metric-context">Lower is better</span></div><div class="chart-wrap chart-wrap-model"><canvas id="model-chart" aria-label="WAPE moyen par modèle" role="img"></canvas></div></article><article class="panel operational-panel"><div class="panel-heading"><div><span class="panel-kicker">OPERATING MODEL</span><h2>Current deployment</h2></div><span class="badge-success">Active</span></div><div class="operational-model"><div class="model-symbol">R</div><div><strong id="operational-model-name">Ridge</strong><p>Interpretable linear model with calibrated intervals</p></div></div><div class="operational-list"><div><span>Model version</span><strong id="operational-version">—</strong></div><div><span>Feature count</span><strong id="feature-count">—</strong></div><div><span>Validation design</span><strong>Chronological holdout</strong></div></div><div class="detail-note">Ridge is deployed for its strong long-horizon accuracy and low CPU inference cost. Tree models remain available for comparison and explainability evidence.</div></article></div>
+          <article class="panel table-panel"><div class="panel-heading"><div><span class="panel-kicker">FULL BENCHMARK</span><h2>Horizon-level results</h2></div></div><div class="table-scroll"><table><thead><tr><th>Model</th><th>Horizon</th><th>WAPE</th><th>MAE</th><th>RMSE</th><th>Benchmark type</th></tr></thead><tbody id="metrics-table"></tbody></table></div></article>
+        </section>
+
+        <section class="view" id="view-monitoring" data-view-panel="monitoring">
+          <div class="page-heading"><div><div class="section-kicker">MODEL OPERATIONS</div><h1>Monitoring</h1><p>Recent drift and performance signals for the selected forecasting model.</p></div><div class="heading-actions"><span class="model-badge" id="monitoring-action-badge"><span class="badge-dot"></span> Loading</span></div></div>
+          <div class="metric-grid metric-grid-three" id="monitoring-metrics"></div>
+          <div class="content-grid content-grid-main"><article class="panel chart-panel"><div class="panel-heading"><div><span class="panel-kicker">PERFORMANCE DRIFT</span><h2>MAE over validation periods</h2></div><span class="metric-context">Chronological windows</span></div><div class="chart-wrap chart-wrap-model"><canvas id="monitoring-chart" aria-label="MAE par période" role="img"></canvas></div></article><article class="panel operational-panel"><div class="panel-heading"><div><span class="panel-kicker">RETRAINING DECISION</span><h2 id="monitoring-decision-title">Loading</h2></div></div><div class="monitoring-status" id="monitoring-status"></div><div class="detail-note">The check compares recent performance with the configured threshold before recommending retraining.</div></article></div>
+          <article class="panel table-panel"><div class="panel-heading"><div><span class="panel-kicker">FEATURE DRIFT</span><h2>Observed data signals</h2></div></div><div class="table-scroll"><table><thead><tr><th>Feature</th><th>Metric</th><th>Reference</th><th>Current</th><th>Status</th></tr></thead><tbody id="drift-table"></tbody></table></div></article>
+        </section>
+
+        <footer class="app-footer"><span>Demand Intelligence Control Center</span><span>Built on M5 demand data · Inventory layer is simulated</span></footer>
+      </main>
+    </div>
+    <script src="/assets/app.js" defer></script>
+  </body>
+</html>
